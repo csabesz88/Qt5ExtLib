@@ -4,6 +4,14 @@ CONFIG += no_keywords
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 
+CONFIG(debug, debug|release){
+   TARGET = qtwidgetsd
+} else {
+   TARGET = qtwidgets
+}
+
+DESTDIR = $$OUT_PWD/../lib
+
 QT += core gui widgets
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x040900
 
