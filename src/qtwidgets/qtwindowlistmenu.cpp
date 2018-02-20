@@ -257,14 +257,14 @@ void QtWindowListMenu::syncWithMdiArea()
     stdGroup->setEnabled(mdi->subWindowList().size() > 0);
 
     winMap.clear();
-    foreach(QAction* act, winGroup->actions()) {
+    Q_FOREACH(QAction* act, winGroup->actions()) {
         removeAction(act);
         winGroup->removeAction(act);
         delete act;
     }
 
     int idx = 1;
-    foreach(QMdiSubWindow *win, mdi->subWindowList()) {
+    Q_FOREACH(QMdiSubWindow *win, mdi->subWindowList()) {
         QString modMarker = win->isWindowModified() ? "*" : "";
         QString title = win->windowTitle().replace("[*]", modMarker);
         QString text;

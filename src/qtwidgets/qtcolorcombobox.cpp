@@ -240,7 +240,7 @@ void QtColorComboBox::emitActivatedColor(int index)
 
 	update();
 	lastActivated = col;
-	emit activated(col);
+   Q_EMIT activated(col);
     } else {
 
         // If any other item than the color dialog item was activated,
@@ -248,7 +248,7 @@ void QtColorComboBox::emitActivatedColor(int index)
 		QColor col = itemData(index).value<QColor>();
         update();
         lastActivated = col;
-        emit activated(col);
+        Q_EMIT activated(col);
 
     }
 }
@@ -262,7 +262,7 @@ void QtColorComboBox::emitActivatedColor(int index)
 void QtColorComboBox::emitHighlightedColor(int index)
 {
     if (!colorDialogEnabled || index != colorCount())
-	emit highlighted(color(index));
+   Q_EMIT highlighted(color(index));
 }
 
 /*! \reimp

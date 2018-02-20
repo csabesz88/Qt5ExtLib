@@ -143,12 +143,12 @@ public:
     QByteArray saveState(int version = 0) const;
     bool restoreState(const QByteArray &state, int version = 0);
 
-public slots:
+public Q_SLOTS:
 
     void resetToolBar(QToolBar *toolBar);
     void resetAllToolBars();
 
-signals:
+Q_SIGNALS:
     void toolBarCreated(QToolBar *toolBar);
     void toolBarRemoved(QToolBar *toolBar);
 
@@ -200,7 +200,7 @@ void QtFullToolBarManagerPrivate::removeWidgetActions(const QMap<QToolBar *, QLi
             }
         }
 
-        //emit q_ptr->toolBarChanged(toolBar, newActions);
+        //Q_EMIT q_ptr->toolBarChanged(toolBar, newActions);
 
         toolBars.insert(toolBar, newActions);
         toolBarsWithSeparators.insert(toolBar, newActionsWithSeparators);
@@ -649,7 +649,7 @@ QToolBar *QtFullToolBarManager::createToolBar(const QString &toolBarName)
     d_ptr->customToolBars.append(toolBar);
     d_ptr->toolBars.insert(toolBar, QList<QAction *>());
     d_ptr->toolBarsWithSeparators.insert(toolBar, QList<QAction *>());
-    //emit toolBarCreated(toolBar);
+    //Q_EMIT toolBarCreated(toolBar);
     return toolBar;
 }
 
@@ -660,7 +660,7 @@ void QtFullToolBarManager::deleteToolBar(QToolBar *toolBar)
     if (d_ptr->defaultToolBars.contains(toolBar))
         return;
     setToolBar(toolBar, QList<QAction *>());
-    //emit toolBarRemoved(toolBar);
+    //Q_EMIT toolBarRemoved(toolBar);
     d_ptr->customToolBars.removeAll(toolBar);
     d_ptr->toolBars.remove(toolBar);
     d_ptr->toolBarsWithSeparators.remove(toolBar);
@@ -708,7 +708,7 @@ void QtFullToolBarManager::setToolBar(QToolBar *toolBar, const QList<QAction *> 
     }
 
     d_ptr->removeWidgetActions(toRemove);
-    //emit toolBarChanged(toolBar, newActions);
+    //Q_EMIT toolBarChanged(toolBar, newActions);
 
     QList<QAction *> oldActions = d_ptr->toolBarsWithSeparators.value(toolBar);
     QListIterator<QAction *> itOldAction(oldActions);
@@ -1673,7 +1673,7 @@ void QtToolBarListWidget::startDrag(Qt::DropActions supportedActions)
     QListWidgetItem *item = currentItem();
     if (item) {
         actionName = QString();
-        emit aboutToDrag(item);
+        Q_EMIT aboutToDrag(item);
         if (!actionName.isEmpty()) {
             QDrag *drag = new QDrag(this);
             QMimeData *data = new QMimeData;
@@ -1730,7 +1730,7 @@ void QtToolBarListWidget::dropEvent(QDropEvent *event)
         QDataStream stream(&array, QIODevice::ReadOnly);
         QString action;
         stream >> action;
-        emit actionDropped(action, item, );
+        Q_EMIT actionDropped(action, item, );
 
         actionDrag = false;
         setIndicator(item, QtToolBarListWidget::None);

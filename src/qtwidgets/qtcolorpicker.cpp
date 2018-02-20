@@ -146,7 +146,7 @@ class ColorPickerButton : public QFrame
 public:
     ColorPickerButton(QWidget *parent);
 
-signals:
+Q_SIGNALS:
     void clicked();
 
 protected:
@@ -177,11 +177,11 @@ public:
 
     void setSelected(bool);
     bool isSelected() const;
-signals:
+Q_SIGNALS:
     void clicked();
     void selected();
 
-public slots:
+public Q_SLOTS:
     void setColor(const QColor &color, const QString &text = QString());
 
 protected:
@@ -218,14 +218,14 @@ public:
     ColorPickerItem *find(const QColor &col) const;
     QColor color(int index) const;
 
-signals:
+Q_SIGNALS:
     void selected(const QColor &);
     void hid();
 
-public slots:
+public Q_SLOTS:
     void getColorFromDialog();
 
-protected slots:
+protected Q_SLOTS:
     void updateSelected();
 
 protected:
@@ -449,7 +449,7 @@ void QtColorPicker::setCurrentColor(const QColor &color)
     repaint();
 
     item->setSelected(true);
-    emit colorChanged(color);
+    Q_EMIT colorChanged(color);
 }
 
 /*!
@@ -670,7 +670,7 @@ void ColorPickerPopup::updateSelected()
     if (sender() && sender()->inherits("ColorPickerItem")) {
 	ColorPickerItem *item = (ColorPickerItem *)sender();
 	lastSel = item->color();
-	emit selected(item->color());
+   Q_EMIT selected(item->color());
     }
 
     hide();
@@ -755,7 +755,7 @@ void ColorPickerPopup::keyPressEvent(QKeyEvent *e)
 		}
 
 		lastSel = wi->color();
-		emit selected(wi->color());
+      Q_EMIT selected(wi->color());
 		hide();
 	    } else if (w && w->inherits("QPushButton")) {
 		ColorPickerItem *wi = reinterpret_cast<ColorPickerItem *>(w);
@@ -775,7 +775,7 @@ void ColorPickerPopup::keyPressEvent(QKeyEvent *e)
 		}
 
 		lastSel = wi->color();
-		emit selected(wi->color());
+      Q_EMIT selected(wi->color());
 		hide();
 	    }
 	}
@@ -802,7 +802,7 @@ void ColorPickerPopup::hideEvent(QHideEvent *e)
 
     setFocus();
 
-    emit hid();
+    Q_EMIT hid();
     QFrame::hideEvent(e);
 }
 
@@ -896,7 +896,7 @@ void ColorPickerPopup::getColorFromDialog()
     QColor col = QColor::fromRgba(rgb);
     insertColor(col, tr("Custom"), -1);
     lastSel = col;
-    emit selected(col);
+    Q_EMIT selected(col);
 }
 
 /*!
@@ -982,7 +982,7 @@ void ColorPickerItem::mouseMoveEvent(QMouseEvent *)
 void ColorPickerItem::mouseReleaseEvent(QMouseEvent *)
 {
     sel = true;
-    emit selected();
+    Q_EMIT selected();
 }
 
 /*!
@@ -1050,7 +1050,7 @@ void ColorPickerButton::mouseReleaseEvent(QMouseEvent *)
 {
     setFrameShadow(Raised);
     repaint();
-    emit clicked();
+    Q_EMIT clicked();
 }
 
 /*!
@@ -1084,7 +1084,7 @@ void ColorPickerButton::keyReleaseEvent(QKeyEvent *e)
     } else if (e->key() == Qt::Key_Enter || e->key() == Qt::Key_Space || e->key() == Qt::Key_Return) {
 	setFrameShadow(Raised);
 	repaint();
-	emit clicked();
+   Q_EMIT clicked();
     } else {
 	QFrame::keyReleaseEvent(e);
     }

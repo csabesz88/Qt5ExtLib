@@ -1,5 +1,5 @@
 TEMPLATE	= lib   
-CONFIG += static
+CONFIG += no_keywords
 
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD

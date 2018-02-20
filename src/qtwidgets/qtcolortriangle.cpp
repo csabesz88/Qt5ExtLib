@@ -327,7 +327,7 @@ void QtColorTriangle::mouseMoveEvent(QMouseEvent *e)
     }
 
     if (newColor)
-	emit colorChanged(curColor);
+   Q_EMIT colorChanged(curColor);
 
     update();
 }
@@ -386,7 +386,7 @@ void QtColorTriangle::mousePressEvent(QMouseEvent *e)
 			 cy - (sin(a) * (outerRadius - (outerRadius / 10.0))));
 
 	selectorPos = pointFromColor(curColor);
-	emit colorChanged(curColor);
+   Q_EMIT colorChanged(curColor);
     } else {
 	selMode = SelectingSatValue;
 
@@ -410,7 +410,7 @@ void QtColorTriangle::mousePressEvent(QMouseEvent *e)
     }
 
     if (newColor)
-	emit colorChanged(curColor);
+   Q_EMIT colorChanged(curColor);
 
     update();
 }
@@ -835,7 +835,7 @@ void QtColorTriangle::setColor(const QColor &col)
     selectorPos = pointFromColor(curColor);
     update();
 
-    emit colorChanged(curColor);
+    Q_EMIT colorChanged(curColor);
 }
 
 /*! \internal
